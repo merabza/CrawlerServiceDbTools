@@ -1,0 +1,18 @@
+<Solution>
+    <Folder Name="/CrawlerService/">
+        <Project Path="../CrawlerService/CrawlerDbModels/CrawlerDbModels.csproj" />
+        <Project Path="../CrawlerService/CrawlerDbPersistence/CrawlerDbPersistence.csproj" />
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig" />
+        <File Path="Directory.Build.props" />
+        <File Path="Directory.Packages.props" />
+    </Folder>
+    <Folder Name="/SystemTools/">
+        <Project Path="../SystemTools/SystemTools.DatabaseToolsShared/SystemTools.DatabaseToolsShared.csproj" />
+        <Project Path="../SystemTools/SystemTools.SharedKernel/SystemTools.SharedKernel.csproj" />
+        <Project Path="../SystemTools/SystemTools.SystemToolsShared/SystemTools.SystemToolsShared.csproj" />
+    </Folder>
+    <Project Path="CrawlerServiceDbTools.DbMigration/CrawlerServiceDbTools.DbMigration.csproj" />
+    <Project Path="CrawlerServiceDbTools.FakeHost/CrawlerServiceDbTools.FakeHost.csproj" />
+</Solution>
