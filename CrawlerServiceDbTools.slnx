@@ -1,7 +1,10 @@
 <Solution>
-    <Folder Name="/CrawlerService/">
-        <Project Path="../CrawlerService/CrawlerDbModels/CrawlerDbModels.csproj" />
-        <Project Path="../CrawlerService/CrawlerDbPersistence/CrawlerDbPersistence.csproj" />
+    <Folder Name="/CrawlerServiceDbPart/">
+        <Project Path="../CrawlerServiceDbPart/CrawlerServiceDbPart.Db/CrawlerServiceDbPart.Db.csproj" />
+    </Folder>
+    <Folder Name="/CrawlerServiceRoot/">
+        <Project Path="../CrawlerServiceRoot/CrawlerServiceRoot.Application.Abstractions/CrawlerServiceRoot.Application.Abstractions.csproj" />
+        <Project Path="../CrawlerServiceRoot/CrawlerServiceRoot.Domain/CrawlerServiceRoot.Domain.csproj" />
     </Folder>
     <Folder Name="/Solution Items/">
         <File Path=".editorconfig" />

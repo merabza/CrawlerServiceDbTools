@@ -6,16 +6,17 @@ Database tooling solution for [CrawlerService](https://github.com/merabza/Crawle
 
 | Project | Purpose |
 |---|---|
-| `CrawlerServiceDbTools.DbMigration` | EF Core migrations assembly for `CrawlerDbContext` |
+| `CrawlerServiceDbTools.DbMigration` | EF Core migrations assembly for `CrawlerDbContext` (`CrawlerServiceDbPart.Db`) |
 | `CrawlerServiceDbTools.FakeHost` | Design-time host for `dotnet ef` only; not deployed |
 
 ## Repository layout — sibling repos are required
 
-The solution references sibling clones by relative path (`../CrawlerService/...`, `../SystemTools/...`):
+The solution references sibling clones by relative path (`../CrawlerServiceRoot/...`, `../CrawlerServiceDbPart/...`, `../SystemTools/...`):
 
 ```
 CrawlerServiceDbTools\           (container folder)
-├── CrawlerService\              (github.com/merabza/CrawlerService — CrawlerDbModels, CrawlerDbPersistence)
+├── CrawlerServiceRoot\          (github.com/merabza/CrawlerServiceRoot — CrawlerServiceRoot.Domain, CrawlerServiceRoot.Application.Abstractions)
+├── CrawlerServiceDbPart\        (github.com/merabza/CrawlerServiceDbPart — CrawlerServiceDbPart.Db: CrawlerDbContext and entity configurations)
 ├── SystemTools\                 (github.com/merabza/SystemTools)
 └── CrawlerServiceDbTools\       (this repo, CrawlerServiceDbTools.slnx lives here)
 ```

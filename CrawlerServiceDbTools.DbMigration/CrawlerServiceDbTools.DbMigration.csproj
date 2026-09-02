@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CrawlerService\CrawlerDbPersistence\CrawlerDbPersistence.csproj" />
+    <ProjectReference Include="..\..\CrawlerServiceDbPart\CrawlerServiceDbPart.Db\CrawlerServiceDbPart.Db.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-using CrawlerDbPersistence;
+using CrawlerServiceDbPart.Db;
 using CrawlerServiceDbTools.DbMigration;
 using Microsoft.EntityFrameworkCore;
 using SystemTools.DatabaseToolsShared;
