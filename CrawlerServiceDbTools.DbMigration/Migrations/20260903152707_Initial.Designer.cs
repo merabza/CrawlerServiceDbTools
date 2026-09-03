@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CrawlerServiceDbTools.DbMigration.Migrations
 {
     [DbContext(typeof(CrawlerDbContext))]
-    [Migration("20260713133613_Initial")]
+    [Migration("20260903152707_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,10 +20,35 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.9")
+                .HasAnnotation("ProductVersion", "10.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CrawlerServiceRoot.Domain.BatchParts.BatchPart", b =>
+                {
+                    b.Property<int>("BpId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BpId"));
+
+                    b.Property<int>("BatchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("Finished")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("BpId");
+
+                    b.HasIndex("BatchId", "Created")
+                        .IsUnique();
+
+                    b.ToTable("BatchParts");
+                });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.Batches.Batch", b =>
                 {
@@ -54,31 +79,6 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                         .IsUnique();
 
                     b.ToTable("Batches");
-                });
-
-            modelBuilder.Entity("CrawlerServiceRoot.Domain.BatchParts.BatchPart", b =>
-                {
-                    b.Property<int>("BpId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BpId"));
-
-                    b.Property<int>("BatchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime?>("Finished")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("BpId");
-
-                    b.HasIndex("BatchId", "Created")
-                        .IsUnique();
-
-                    b.ToTable("BatchParts");
                 });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.ContentsAnalysis.ContentAnalysis", b =>
@@ -140,6 +140,32 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                     b.ToTable("Extensions", (string)null);
                 });
 
+            modelBuilder.Entity("CrawlerServiceRoot.Domain.HostModels.HostModel", b =>
+                {
+                    b.Property<int>("HostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostId"));
+
+                    b.Property<string>("HostName")
+                        .IsRequired()
+                        .HasMaxLength(253)
+                        .HasColumnType("nvarchar(253)");
+
+                    b.Property<bool>("HostProhibited")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("HostId");
+
+                    b.HasIndex("HostName")
+                        .IsUnique();
+
+                    b.ToTable("Hosts", (string)null);
+                });
+
             modelBuilder.Entity("CrawlerServiceRoot.Domain.HostsByBatches.HostByBatch", b =>
                 {
                     b.Property<int>("HbbId")
@@ -167,32 +193,6 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                         .IsUnique();
 
                     b.ToTable("HostsByBatches", (string)null);
-                });
-
-            modelBuilder.Entity("CrawlerServiceRoot.Domain.HostModels.HostModel", b =>
-                {
-                    b.Property<int>("HostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HostId"));
-
-                    b.Property<string>("HostName")
-                        .IsRequired()
-                        .HasMaxLength(253)
-                        .HasColumnType("nvarchar(253)");
-
-                    b.Property<bool>("HostProhibited")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.HasKey("HostId");
-
-                    b.HasIndex("HostName")
-                        .IsUnique();
-
-                    b.ToTable("Hosts", (string)null);
                 });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.Robots.Robot", b =>
@@ -297,6 +297,31 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                     b.ToTable("TaskStartPoints", (string)null);
                 });
 
+            modelBuilder.Entity("CrawlerServiceRoot.Domain.TermTypes.TermType", b =>
+                {
+                    b.Property<int>("TtId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TtId"));
+
+                    b.Property<string>("TtKey")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TtName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("TtId");
+
+                    b.HasIndex("TtKey")
+                        .IsUnique();
+
+                    b.ToTable("TermTypes");
+                });
+
             modelBuilder.Entity("CrawlerServiceRoot.Domain.Terms.Term", b =>
                 {
                     b.Property<int>("TrmId")
@@ -353,31 +378,6 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                         .IsUnique();
 
                     b.ToTable("TermsByUrls", (string)null);
-                });
-
-            modelBuilder.Entity("CrawlerServiceRoot.Domain.TermTypes.TermType", b =>
-                {
-                    b.Property<int>("TtId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TtId"));
-
-                    b.Property<string>("TtKey")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("TtName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("TtId");
-
-                    b.HasIndex("TtKey")
-                        .IsUnique();
-
-                    b.ToTable("TermTypes");
                 });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.UrlGraphNodes.UrlGraphNode", b =>
@@ -642,13 +642,6 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                     b.Navigation("SchemeNavigation");
                 });
 
-            modelBuilder.Entity("CrawlerServiceRoot.Domain.Batches.Batch", b =>
-                {
-                    b.Navigation("BatchParts");
-
-                    b.Navigation("HostsByBatches");
-                });
-
             modelBuilder.Entity("CrawlerServiceRoot.Domain.BatchParts.BatchPart", b =>
                 {
                     b.Navigation("ContentsAnalysis");
@@ -658,6 +651,13 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                     b.Navigation("TermsByUrls");
 
                     b.Navigation("UrlGraphNodes");
+                });
+
+            modelBuilder.Entity("CrawlerServiceRoot.Domain.Batches.Batch", b =>
+                {
+                    b.Navigation("BatchParts");
+
+                    b.Navigation("HostsByBatches");
                 });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.ExtensionModels.ExtensionModel", b =>
@@ -688,14 +688,14 @@ namespace CrawlerServiceDbTools.DbMigration.Migrations
                     b.Navigation("StartPoints");
                 });
 
-            modelBuilder.Entity("CrawlerServiceRoot.Domain.Terms.Term", b =>
-                {
-                    b.Navigation("TermsByUrls");
-                });
-
             modelBuilder.Entity("CrawlerServiceRoot.Domain.TermTypes.TermType", b =>
                 {
                     b.Navigation("Terms");
+                });
+
+            modelBuilder.Entity("CrawlerServiceRoot.Domain.Terms.Term", b =>
+                {
+                    b.Navigation("TermsByUrls");
                 });
 
             modelBuilder.Entity("CrawlerServiceRoot.Domain.UrlModels.UrlModel", b =>
